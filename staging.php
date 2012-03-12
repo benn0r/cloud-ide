@@ -26,7 +26,7 @@ function untracked($content) {
 	return $files;
 }
 
-$content = shell_exec('"C:\\Program Files (x86)\\Git\\bin\\git" status --porcelain --untracked-files=all 2>&1');
+$content = shell_exec('"C:\\Program Files (x86)\\Git\\bin\\git" status --porcelain --untracked-files=all');
 
 echo '<p><strong>Modified:</strong><br />';
 foreach (modified($content) as $file) {
@@ -36,4 +36,4 @@ echo '</p><p><strong>Untracked:</strong><br />';
 foreach (untracked($content) as $file) {
 	echo $file . '<br />';
 }
-echo '</p>';
+echo '</p><p><a href="staging.php">Reload</a></p>';

@@ -29,6 +29,7 @@
 		<legend>Editor</legend>
 		<textarea id="code" name="code"></textarea>
 		<button onclick="save()">Save</button>
+		<button onclick="run()">Run</button>
 	</fieldset>
 	<fieldset style="float: left; width: 200px">
 		<legend>Staging <a href="" onclick="return staging()">[refresh]</a></legend>
@@ -59,8 +60,17 @@
 
 		function save() {
 			$.post('save.php?file=' + filename, 'data=' + editor.getValue(), function(data) {
-				
+				staging();
 			});
+			
+			return false;
+		}
+
+		function run() {
+			window.open(
+				'test/' + filename,
+				'_blank'
+			);
 			
 			return false;
 		}

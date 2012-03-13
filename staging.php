@@ -36,4 +36,4 @@ echo '</p><p><strong>Untracked:</strong><br />';
 foreach (untracked($content) as $file) {
 	echo $file . '<br />';
 }
-echo '</p><p><a href="staging.php">Reload</a></p>';
+echo '</p>';

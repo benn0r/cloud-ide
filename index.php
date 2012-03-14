@@ -24,6 +24,7 @@ function open_dir($dirname) {
 	<title>cloud-ide</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="codemirror/codemirror.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	
 	<script src="codemirror/codemirror.js"></script>
 	<script src="codemirror/mode/php/php.js"></script>
@@ -33,11 +34,22 @@ function open_dir($dirname) {
 	<script src="codemirror/mode/clike/clike.js"></script>
 </head>
 <body>
+	<div class="container-fluid">
+  		<div class="row-fluid">
+    		<div class="span2">
+				<h6>Workspace</h6>
+				<?php
+				open_dir('test');
+				?>
+			</div>
+			<div class="span10">
+				test
+			</div>		
+		</div>
+	</div>
+
 	<fieldset style="float: left; width: 200px">
 		<legend>Workspace</legend>
-		<?php
-		open_dir('test');
-		?>
 	</fieldset>
 	<fieldset style="float: left; width: 500px">
 		<legend>Editor</legend>

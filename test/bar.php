@@ -1,3 +1,3 @@
 <?php
 
-echo 'Hello World!' . $_GET['name'];
+require_once  'foo.php';

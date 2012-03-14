@@ -1,3 +1,23 @@
+<?php
+
+function open_dir($dirname) {
+	$dir = opendir($dirname);
+	while ($file = readdir($dir)) {
+		if ($file == '.' || $file == '..') {
+			continue;
+		}
+		
+		if (is_dir($dirname . '/' . $file)) {
+			open_dir($dirname . '/' . $file);
+		} else if (is_file($dirname . '/' . $file)) {
+			echo '<a href="" onclick="return openfile(\'' . $dirname . '/' . $file . '\')">' . $dirname . '/' . $file . '</a><br />';
+		}
+	}
+	closedir($dir);
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,13 +36,7 @@
 	<fieldset style="float: left; width: 200px">
 		<legend>Workspace</legend>
 		<?php
-		$dir = opendir('test');
-		while ($file = readdir($dir)) {
-			if (is_file('test/' . $file)) {
-				echo '<a href="" onclick="return openfile(\'' . $file . '\')">' . $file . '</a><br />';
-			}
-		}
-		closedir($dir);
+		open_dir('test');
 		?>
 	</fieldset>
 	<fieldset style="float: left; width: 500px">
@@ -68,7 +82,7 @@
 
 		function run() {
 			window.open(
-				'test/' + filename,
+				filename,
 				'_blank'
 			);
 			

@@ -1,0 +1,63 @@
+body {
+	background-color: #f0f0f0;
+}
+
+header {
+	/*border-bottom: 3px solid #ebebeb;*/
+	background-color: #ffffff;
+	top: 0px; right: 0px; left: 0px;
+	height: 97px;
+}
+
+.pane {
+	position: absolute;
+}
+
+.pane-left {
+	border-right: 1px #dadada solid;
+	background-color: #ffffff;
+	top: 100px; bottom: 0px; left: 0px;
+	width: 300px;
+}
+
+.pane-center {
+	top: 110px; right: 10px; bottom: 10px; left: 310px;
+}
+.pane-center .CodeMirror {
+	background: #ffffff;
+	border: 1px solid #dddddd;
+	margin-top: -1px;
+}
+
+.pane-center .CodeMirror .CodeMirror-gutter {
+	background-color: #ffffff;
+}
+
+.nav-files {
+	margin-bottom: 0px;
+}
+
+.close {
+	font-size: 18px;
+	display: inline-block;
+	margin-top: 0px;
+  	margin-right: 10px;
+  	
+  	width: 0;
+  	height: 0;
+  	vertical-align: top;
+}
+
+.pane-workspace {
+	overflow: auto;
+}
+.pane-workspace img {
+	margin-right: 5px;
+}
+.pane-workspace .waiting {
+	margin-left: 21px;
+}
+.pane-workspace form {
+	padding: 10px;
+	margin: 0;
+}

@@ -25,6 +25,7 @@ function open_dir($dirname) {
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="codemirror/codemirror.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/editor.css">
 	
 	<script src="codemirror/codemirror.js"></script>
 	<script src="codemirror/mode/php/php.js"></script>
@@ -34,29 +35,27 @@ function open_dir($dirname) {
 	<script src="codemirror/mode/clike/clike.js"></script>
 </head>
 <body>
-	<div class="container-fluid">
-  		<div class="row-fluid">
-    		<div class="span2">
-				<h6>Workspace</h6>
-				<?php
-				open_dir('test');
-				?>
-			</div>
-			<div class="span10">
-				test
-			</div>		
-		</div>
+	<header class="pane">
+	</header>
+	
+	<div class="pane pane-left pane-workspace">
+		<!-- <form action="" class="form-search">
+			<input type="text" placeholder="Search Workspace">
+		</form> -->
 	</div>
-
-	<fieldset style="float: left; width: 200px">
-		<legend>Workspace</legend>
-	</fieldset>
-	<fieldset style="float: left; width: 500px">
-		<legend>Editor</legend>
+	
+	<div class="pane pane-center">
+		<ul class="nav nav-tabs nav-files">
+			<li class="dropdown active"><a href="#">bar.php <b class="close">&times;</b></a></li>
+			<li class="dropdown"><a href="#">blub.php</a></li>
+			<li class="dropdown"><a href="#">foo.php</a></li>
+		</ul>
+	
 		<textarea id="code" name="code"></textarea>
+		
 		<button onclick="save()">Save</button>
 		<button onclick="run()">Run</button>
-	</fieldset>
+	</div>
 	<fieldset style="float: left; width: 200px">
 		<legend>Staging <a href="" onclick="return staging()">[refresh]</a></legend>
 		<div id="staging"></div>
@@ -65,6 +64,40 @@ function open_dir($dirname) {
 	<script>
 		var editor;
 		var filename;
+
+		function opentree(parent, path) {
+			var parent = $(parent);
+
+			if (parent.data('open')) {
+				parent.data('open', false);
+				parent.data('loaded', true);
+				parent.find('div').hide();
+				
+				return false;
+			}
+
+			if (parent.data('loaded')) {
+				parent.find('div').show();
+				parent.data('open', true);
+				
+				return false;
+			}
+
+			parent.append('<div class="waiting"><img src="img/tree/loader.gif"></div>');
+			$.get('tree.php?path=' + path, function(data) {
+				parent.data('open', true);
+				parent.append(data);
+				parent.find('.waiting').remove();
+
+				parent.find('div').find('a').mousedown(function(event) {
+					if (event.which == 3) {
+						alert('clicked');
+					}
+				});
+			});
+
+			return false;
+		}
 	
 		function staging() {
 			$.get('staging.php', function(data) {
@@ -112,6 +145,10 @@ function open_dir($dirname) {
 			   }
 			 });
 			 var hlLine = editor.setLineClass(0, "activeline");
+
+			 $.get('tree.php?path=test', function(data) {
+				 $('.pane-workspace').append(data);
+			 });
 			
 			staging();
 		});

@@ -27,6 +27,8 @@ function open_dir($dirname) {
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/editor.css">
 	
+	<script src="js/editor.js"></script>
+	
 	<script src="codemirror/codemirror.js"></script>
 	<script src="codemirror/mode/php/php.js"></script>
 	<script src="codemirror/mode/xml/xml.js"></script>
@@ -35,34 +37,36 @@ function open_dir($dirname) {
 	<script src="codemirror/mode/clike/clike.js"></script>
 </head>
 <body>
-	<header class="pane">
-	</header>
+	<!-- <header class="pane">
+	</header> -->
 	
-	<div class="pane pane-left pane-workspace">
-		<!-- <form action="" class="form-search">
-			<input type="text" placeholder="Search Workspace">
-		</form> -->
-	</div>
-	
-	<div class="pane pane-center">
-		<ul class="nav nav-tabs nav-files">
-			<li class="dropdown active"><a href="#">bar.php <b class="close">&times;</b></a></li>
-			<li class="dropdown"><a href="#">blub.php</a></li>
-			<li class="dropdown"><a href="#">foo.php</a></li>
-		</ul>
-	
-		<textarea id="code" name="code"></textarea>
+	<div class="ide">
+		<div class="pane pane-left pane-workspace">
+			<!-- <form action="" class="form-search">
+				<input type="text" placeholder="Search Workspace">
+			</form> -->
+		</div>
 		
-		<button onclick="save()">Save</button>
-		<button onclick="run()">Run</button>
+		<div class="pane pane-center">
+			<!-- <ul class="nav nav-tabs nav-files">
+				<li class="dropdown active"><a href="#">bar.php <b class="close">&times;</b></a></li>
+				<li class="dropdown"><a href="#">blub.php</a></li>
+				<li class="dropdown"><a href="#">foo.php</a></li>
+			</ul>
+		
+			<textarea id="code" name="code"></textarea>
+			
+			<button onclick="save()">Save</button>
+			<button onclick="run()">Run</button> -->
+		</div>
+		<!-- <fieldset style="float: left; width: 200px">
+			<legend>Staging <a href="" onclick="return staging()">[refresh]</a></legend>
+			<div id="staging"></div>
+		</fieldset> -->
 	</div>
-	<fieldset style="float: left; width: 200px">
-		<legend>Staging <a href="" onclick="return staging()">[refresh]</a></legend>
-		<div id="staging"></div>
-	</fieldset>
 	
 	<script>
-		var editor;
+		/*var editor;
 		var filename;
 
 		function opentree(parent, path) {
@@ -132,10 +136,10 @@ function open_dir($dirname) {
 			);
 			
 			return false;
-		}
+		}*/
 		
 		$(function() {
-			 editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+			 /*editor = CodeMirror.fromTextArea(document.getElementById("code"), {
 			   mode: "application/x-httpd-php",
 			   lineNumbers: true,
 			   lineWrapping: true,
@@ -146,11 +150,13 @@ function open_dir($dirname) {
 			 });
 			 var hlLine = editor.setLineClass(0, "activeline");
 
-			 $.get('tree.php?path=test', function(data) {
+			 $.get('tree.php?path=projects/wwm', function(data) {
 				 $('.pane-workspace').append(data);
 			 });
 			
-			staging();
+			staging();*/
+
+			$('.ide').ide();
 		});
 	</script>
 </body>

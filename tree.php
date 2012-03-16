@@ -39,6 +39,7 @@ function get_icon($filename) {
 function print_files($path) {
 	$html = '';
 	$files = '';
+	$json = array();
 	
 	$handle = opendir($path);
 	while (($filename = readdir($handle)) != null) {
@@ -46,14 +47,22 @@ function print_files($path) {
 			continue; 
 		}
 		
+		$obj = new stdClass();
+		
 // 		$left = (count(explode('/', $path)) - 1) * 21;
 		
 		$str = '<div class="" style="margin-left: ' . (count(explode('/', $path)) > 1 ? '21' : '0') . 'px">';
+		$obj->name = $filename;
+		$obj->path = $path;
+		$obj->icon = get_icon($path . '/' . $filename);
 		
 		if (is_dir($path . '/' . $filename)) {
+			$obj->type = 'dir';
+			
 			$str .= '<a onclick="return opentree($(this).parent(), \'' . $path . '/' . $filename . '\')" href="">' . 
 				get_icon($path . '/' . $filename) . $filename . '</a>';
 		} else {
+			$obj->type = 'file';
 			$str .= get_icon($path . '/' . $filename) . $filename;
 		}
 		
@@ -64,9 +73,12 @@ function print_files($path) {
 		} else {
 			$files .= $str;
 		}
+		
+		$json[] = $obj;
 	}
 	closedir($handle);
 	
+	return json_encode($json);
 	return $html . $files;
 }
 

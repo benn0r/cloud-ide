@@ -21,13 +21,19 @@ function open_dir($dirname) {
 <!DOCTYPE html>
 <html>
 <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 	<title>cloud-ide</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+	
 	<link rel="stylesheet" type="text/css" href="codemirror/codemirror.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/editor.css">
+	<link rel="stylesheet" type="text/css" href="css/dftree.css">
 	
 	<script src="js/editor.js"></script>
+	<script src="js/tabs.js"></script>
 	
 	<script src="codemirror/codemirror.js"></script>
 	<script src="codemirror/mode/php/php.js"></script>
@@ -35,29 +41,70 @@ function open_dir($dirname) {
 	<script src="codemirror/mode/javascript/javascript.js"></script>
 	<script src="codemirror/mode/css/css.js"></script>
 	<script src="codemirror/mode/clike/clike.js"></script>
+	<script src="js/dftree.js"></script>
+	<script src="js/dftreeajax.js"></script>
 </head>
 <body>
 	<!-- <header class="pane">
 	</header> -->
 	
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="brand" href="#">Cloud IDE</a>
+				<ul class="nav">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							File
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="$('.ide').ide('save'); return false">Save</a></li>
+							<li><a href="$('.ide').ide('saveall'); return false">Save all</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							Edit
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href="" onclick="document.execCommand('undo'); return false;">Undo Text Change</a></li>
+							<li><a href="" onclick="document.execCommand('redo'); return false;">Redo Text Change</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
 	<div class="ide">
 		<div class="pane pane-left pane-workspace">
+			<script>
+				var tree = new AjaxTree({
+							name: 'tree', 
+							icondir: 'img', 
+							useIcons: true, 
+							isLazy: false, 
+							id: 'projects/', 
+							caption: 'Project',
+							url: '', 
+							ajaxurl: 'tree.php?',
+						});
+
+				function open(file) {
+					$('.ide').ide('open', file);
+				}
+
+				tree.draw();
+			</script>
 			<!-- <form action="" class="form-search">
 				<input type="text" placeholder="Search Workspace">
 			</form> -->
 		</div>
 		
 		<div class="pane pane-center">
-			<!-- <ul class="nav nav-tabs nav-files">
-				<li class="dropdown active"><a href="#">bar.php <b class="close">&times;</b></a></li>
-				<li class="dropdown"><a href="#">blub.php</a></li>
-				<li class="dropdown"><a href="#">foo.php</a></li>
-			</ul>
-		
-			<textarea id="code" name="code"></textarea>
 			
-			<button onclick="save()">Save</button>
-			<button onclick="run()">Run</button> -->
 		</div>
 		<!-- <fieldset style="float: left; width: 200px">
 			<legend>Staging <a href="" onclick="return staging()">[refresh]</a></legend>
@@ -65,6 +112,7 @@ function open_dir($dirname) {
 		</fieldset> -->
 	</div>
 	
+	<script src="js/bootstrap.min.js"></script>
 	<script>
 		/*var editor;
 		var filename;
@@ -157,6 +205,8 @@ function open_dir($dirname) {
 			staging();*/
 
 			$('.ide').ide();
+			
+			$('*[rel=tooltip]').tooltip();
 		});
 	</script>
 </body>

@@ -16,25 +16,36 @@ header {
 .pane-left {
 	border-right: 1px #dadada solid;
 	background-color: #ffffff;
-	top: 100px; bottom: 0px; left: 0px;
-	width: 300px;
+	top: 41px; bottom: 0px; left: 0px;
+	width: 290px;
+	padding-left: 10px;
 }
 
 .pane-center {
-	top: 110px; right: 10px; bottom: 10px; left: 310px;
+	top: 51px; right: 10px; bottom: 10px; left: 310px;
 }
 .pane-center .CodeMirror {
 	background: #ffffff;
 	border: 1px solid #dddddd;
-	margin-top: -1px;
+	/*margin-top: -1px;*/
 }
 
 .pane-center .CodeMirror .CodeMirror-gutter {
 	background-color: #ffffff;
 }
 
+.pane-editor .editor {
+	position: absolute;
+	top: 35px; right: 0px; bottom: 0px; left: 0px;
+}
+.CodeMirror, .CodeMirror-scroll {
+	height: 100%;
+	outline: none;
+}
+
 .nav-files {
 	margin-bottom: 0px;
+	border: none;
 }
 
 .close {
@@ -47,6 +58,12 @@ header {
   	height: 0;
   	vertical-align: top;
 }
+.dropdown .close {
+	display: none;
+}
+.active .close {
+	display: inline-block;
+}
 
 .pane-workspace {
 	overflow: auto;
@@ -57,7 +74,38 @@ header {
 .pane-workspace .waiting {
 	margin-left: 21px;
 }
-.pane-workspace form {
-	padding: 10px;
+.pane-workspace ul {
 	margin: 0;
+}
+.pane-workspace a {
+	padding: 0 3px;
+}
+
+.navbar-inner .container {
+	width: auto;
+	margin-left: 10px;
+}
+.navbar-inner .brand {
+	width: 280px;
+}
+
+.pane-project {
+	border-radius: 0;
+	border-right: none;
+	border-left: none;
+	margin: 0 0 10px 0;
+	padding: 5px 10px 5px 10px;
+	
+	font-size: 11px;
+	color: #999;
+	text-transform: uppercase;
+}	
+
+.activeline { background: #e8f2ff !important; }
+
+.nav-files .moretabs {
+	float: right;
+}
+.nav-files .moretabs .caret {
+	margin-top: 6px;
 }
